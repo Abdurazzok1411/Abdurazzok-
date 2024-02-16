@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Простой калькулятор</title>
+  <style>
+    .calculator {
+      width: 200px;
+      margin: auto;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    input[type="button"] {
+      width: 48px;
+      height: 48px;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display">
+    <br>
+    <input type="button" value="1">
+    <input type="button" value="2">
+    <input type="button" value="3">
+    <input type="button" value="+">
+    <br>
+    <input type="button" value="4">
+    <input type="button" value="5">
+    <input type="button" value="6">
+    <input type="button" value="-">
+    </br>
+    <input type="button" value="7">
+    <input type="button" value="8">
+    <input type="button" value="9">
+    <input type="button" value="*">
+    </br>
+    <input type="button" value="C" onclick="clearDisplay()">
+    <input type="button" value="0">
+    <input type="button" value="=" onclick="calculate()">
+    <input type="button" value="/" onclick="insert('/')">
+  </div>
+  <script>
+    let display = document.getElementById("display");
+
+    function insert(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function calculate() {
+      display.value = eval(display.value);
+    }
+  </script>
+</body>
+</html>
