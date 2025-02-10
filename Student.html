@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тести донишҷӯ</title>
+    <script>
+        function submitTest() {
+            let answer1 = document.querySelector('input[name="q1"]:checked')?.value || "Не выбран";
+            let answer2 = document.querySelector('input[name="q2"]:checked')?.value || "Не выбран";
+
+            let results = {
+                question1: answer1,
+                question2: answer2
+            };
+
+            localStorage.setItem("testResults", JSON.stringify(results));
+            alert("Ҷавобҳо ба администратор фиристода шуд!");
+        }
+    </script>
+</head>
+<body>
+    <h2>Тест</h2>
+    <p>1. 2 + 2 = ?</p>
+    <input type="radio" name="q1" value="3"> 3
+    <input type="radio" name="q1" value="4"> 4
+    <input type="radio" name="q1" value="5"> 5
+
+    <p>2. Пойтахти Тоҷикистон кадом аст?</p>
+    <input type="radio" name="q2" value="Хуҷанд"> Хуҷанд
+    <input type="radio" name="q2" value="Душанбе"> Душанбе
+    <input type="radio" name="q2" value="Бохтар"> Бохтар
+
+    <br><br>
+    <button onclick="submitTest()">Фиристодан</button>
+</body>
+</html>

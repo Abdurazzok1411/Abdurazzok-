@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Саҳифаи администратор</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        #results-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        button {
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #ff1e3c;
+        }
+    </style>
+    <script>
+        function loadResults() {
+            let results = localStorage.getItem("testResults");
+            if (results) {
+                results = JSON.parse(results);
+                document.getElementById("q1").innerText = "1. 2 + 2 = " + results.question1;
+                document.getElementById("q2").innerText = "2. Пойтахти Тоҷикистон = " + results.question2;
+            } else {
+                document.getElementById("results").innerText = "Ҳоло ҷавобе нест!";
+            }
+        }
+
+        function clearResults() {
+            localStorage.removeItem("testResults");
+            alert("Маълумотҳо тоза карда шуданд!");
+            document.getElementById("q1").innerText = "";
+            document.getElementById("q2").innerText = "";
+            document.getElementById("results").innerText = "Ҳоло ҷавобе нест!";
+        }
+    </script>
+</head>
+<body onload="loadResults()">
+    <h2>Натиҷаи тестҳо</h2>
+    <div id="results-container">
+        <p id="q1"></p>
+        <p id="q2"></p>
+        <p id="results"></p>
+        <button onclick="clearResults()">Очистка</button>
+    </div>
+</body>
+</html>

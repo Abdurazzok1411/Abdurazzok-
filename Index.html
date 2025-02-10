@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Системаи вуруд бо PIN</title>
+    <script>
+        function checkPin() {
+            let pin = document.getElementById("pin").value;
+
+            if (pin === "1234") {
+                window.location.href = "student.html"; // Ба саҳифаи донишҷӯ
+            } else if (pin === "4321") {
+                window.location.href = "admin.html"; // Ба саҳифаи администратор
+            } else {
+                alert("PIN-коди нодуруст! Такроран кӯшиш кунед.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Лутфан PIN-кодро ворид кунед</h2>
+    <input type="password" id="pin" placeholder="PIN-код">
+    <button onclick="checkPin()">Ворид шудан</button>
+</body>
+</html>
