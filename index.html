@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<title>65 KG — 30 Day Challenge</title>
+<style>
+:root{
+  --bg:#090b10; --card:#11151d; --card2:#171c26; --text:#f5f7fb; --muted:#8e98a9;
+  --accent:#a7ff3f; --accent2:#6ee7b7; --line:#252c38; --danger:#ff6b6b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 80% -10%,#26351a 0,transparent 30%),var(--bg);
+ color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+.app{max-width:680px;margin:auto;padding:22px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.logo{font-weight:900;letter-spacing:-1px;font-size:24px}.logo span{color:var(--accent)}
+.badge{font-size:11px;font-weight:800;padding:7px 10px;border:1px solid #34402a;border-radius:999px;color:var(--accent);background:#12180d}
+.hero{padding:22px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,#151a22,#0f1218);box-shadow:0 18px 50px #0008}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase}
+h1{font-size:36px;line-height:1;margin:9px 0 8px;letter-spacing:-1.8px}
+.sub{color:var(--muted);font-size:14px;line-height:1.5}
+.progress{height:12px;background:#252b35;border-radius:20px;overflow:hidden;margin:22px 0 10px}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:20px;transition:.5s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:15px}
+.stat{background:#0c0f14;border:1px solid var(--line);border-radius:17px;padding:13px}
+.stat b{display:block;font-size:19px}.stat small{color:var(--muted);font-size:11px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+.card h2{font-size:15px;margin:0 0 14px}.muted{color:var(--muted)}
+.inputrow{display:flex;gap:9px}
+input{width:100%;background:#0b0e13;border:1px solid #303846;color:#fff;border-radius:14px;padding:14px;font-size:20px;outline:none}
+input:focus{border-color:var(--accent)}
+button{border:0;border-radius:14px;padding:0 17px;font-weight:900;background:var(--accent);color:#10130b;cursor:pointer}
+button.secondary{background:#202630;color:#fff}
+.today{font-size:12px;color:var(--muted);margin-bottom:9px}
+.big{font-size:40px;font-weight:900;letter-spacing:-2px}
+.delta{font-size:12px;margin-top:3px}
+.chartbox{height:230px;position:relative}.chartbox canvas{width:100%;height:100%}
+.history{display:flex;flex-direction:column;gap:8px;max-height:270px;overflow:auto}
+.row{display:flex;justify-content:space-between;align-items:center;background:#0c0f14;border:1px solid var(--line);border-radius:13px;padding:11px 12px}
+.row strong{font-size:15px}.row span{color:var(--muted);font-size:11px}
+.actions{display:flex;gap:8px;margin-top:12px}.actions button{padding:11px 13px;font-size:12px}
+.notice{margin-top:12px;border:1px solid #3c3320;background:#18140d;color:#d7c9a7;border-radius:17px;padding:13px;font-size:12px;line-height:1.5}
+.footer{text-align:center;color:#626c7c;font-size:11px;margin-top:20px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}h1{font-size:31px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><div class="logo">65<span>KG</span></div><div class="badge">30 DAY CHALLENGE</div></div>
+
+  <section class="hero">
+    <div class="eyebrow">Имрӯз • 17 август 2026</div>
+    <h1>58.20 → 65.00 KG</h1>
+    <div class="sub">Ҳар рӯз вазнатро сабт кун. Система прогресс, streak ва графики туро автоматӣ нигоҳ медорад.</div>
+    <div class="progress"><div id="bar"></div></div>
+    <div class="sub"><b id="pct">0%</b> аз ҳадаф • <span id="left">6.80 кг</span> мондааст</div>
+    <div class="stats">
+      <div class="stat"><b id="current">58.20</b><small>вазни ҳозира</small></div>
+      <div class="stat"><b id="gain">+0.00</b><small>гирифта шуд</small></div>
+      <div class="stat"><b id="streak">0 🔥</b><small>рӯз пай дар пай</small></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>⚖️ Вазни имрӯз</h2>
+      <div class="today" id="dateLabel"></div>
+      <div class="inputrow"><input id="weight" type="number" step="0.01" min="20" max="300" placeholder="58.20"><button onclick="saveWeight()">Сабт</button></div>
+      <div class="actions"><button class="secondary" onclick="setNow()">Ҳозира</button><button class="secondary" onclick="resetData()">Reset</button></div>
+    </section>
+    <section class="card">
+      <h2>🎯 Ҳадаф</h2>
+      <div class="big">65.00</div>
+      <div class="muted">кг • то 15 сентябр</div>
+      <div style="margin-top:14px;font-size:13px">Оғоз: <b>58.20 кг</b></div>
+      <div style="margin-top:5px;font-size:13px">Тағйир: <b id="pace">+6.80 кг</b></div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:12px">
+    <h2>📈 Графики прогресс</h2>
+    <div class="chartbox"><canvas id="chart"></canvas></div>
+  </section>
+
+  <section class="card" style="margin-top:12px">
+    <h2>🗓️ Таърихи вазн</h2>
+    <div id="history" class="history"></div>
+  </section>
+
+  <div class="notice">⚠️ Ҳадафи +6.8 кг дар 30 рӯз суръати хеле баланд аст. Ин сайт танҳо трекер аст, на тавсияи тиббӣ. Барои вазнгирии босифат одатан тағйироти тадриҷӣ ва ғизои кофӣ беҳтар аст.</div>
+  <div class="footer">Маълумот танҳо дар ҳамин браузер нигоҳ дошта мешавад • 65KG Challenge</div>
+</div>
+
+<script>
+const START=58.20, GOAL=65.00, START_DATE=new Date('2026-08-17T00:00:00');
+let entries=JSON.parse(localStorage.getItem('weight65_entries')||'[]');
+
+function dateKey(d=new Date()){ return d.toISOString().slice(0,10); }
+function fmtDate(k){return new Date(k+'T00:00:00').toLocaleDateString('tg-TJ',{day:'2-digit',month:'short'});}
+function save(){localStorage.setItem('weight65_entries',JSON.stringify(entries));}
+function saveWeight(){
+  const v=parseFloat(document.getElementById('weight').value);
+  if(!v || v<20 || v>300) return alert('Вазни дурустро ворид кун.');
+  const k=dateKey();
+  const i=entries.findIndex(x=>x.date===k);
+  if(i>=0) entries[i].weight=v; else entries.push({date:k,weight:v});
+  entries.sort((a,b)=>a.date.localeCompare(b.date)); save(); render();
+  document.getElementById('weight').value='';
+}
+function setNow(){document.getElementById('weight').value=(entries.at(-1)?.weight||START).toFixed(2)}
+function resetData(){if(confirm('Ҳамаи сабтҳо тоза шаванд?')){entries=[];save();render();}}
+function streak(){
+  if(!entries.length)return 0;
+  const set=new Set(entries.map(x=>x.date)); let d=new Date(); let n=0;
+  while(set.has(dateKey(d))){n++;d.setDate(d.getDate()-1)}
+  return n;
+}
+function render(){
+  const latest=entries.at(-1)?.weight||START;
+  const gained=latest-START, progress=Math.max(0,Math.min(100,gained/(GOAL-START)*100));
+  document.getElementById('current').textContent=latest.toFixed(2);
+  document.getElementById('gain').textContent=(gained>=0?'+':'')+gained.toFixed(2);
+  document.getElementById('pct').textContent=progress.toFixed(0)+'%';
+  document.getElementById('left').textContent=Math.max(0,GOAL-latest).toFixed(2)+' кг';
+  document.getElementById('bar').style.width=progress+'%';
+  document.getElementById('streak').textContent=streak()+' 🔥';
+  document.getElementById('pace').textContent=(GOAL-START).toFixed(2)+' кг';
+  document.getElementById('dateLabel').textContent=new Date().toLocaleDateString('tg-TJ',{weekday:'long',day:'numeric',month:'long'});
+  const h=document.getElementById('history');
+  h.innerHTML=entries.slice().reverse().map((x,i)=>{
+    const prev=entries[entries.findIndex(y=>y.date===x.date)-1];
+    const d=prev?(x.weight-prev.weight):0;
+    return `<div class="row"><div><strong>${x.weight.toFixed(2)} кг</strong><br><span>${fmtDate(x.date)}</span></div><div style="text-align:right">${d?((d>0?'+':'')+d.toFixed(2)+' кг'):''}</div></div>`;
+  }).join('') || '<div class="muted" style="font-size:13px">Ҳоло ягон сабт нест. Вазни имрӯзро ворид кун.</div>';
+  drawChart();
+}
+function drawChart(){
+  const c=document.getElementById('chart'),r=c.getBoundingClientRect(),d=devicePixelRatio||1;
+  c.width=r.width*d;c.height=r.height*d;const ctx=c.getContext('2d');ctx.scale(d,d);
+  const w=r.width,h=r.height,p=25;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle='#252c38';ctx.lineWidth=1;
+  for(let i=0;i<4;i++){let y=p+i*(h-2*p)/3;ctx.beginPath();ctx.moveTo(p,y);ctx.lineTo(w-p,y);ctx.stroke();}
+  const all=[{date:'2026-08-17',weight:START},...entries.filter(x=>x.date!=='2026-08-17')];
+  const vals=all.map(x=>x.weight); if(!vals.length)return;
+  const min=Math.min(START,...vals,GOAL)-1,max=Math.max(START,...vals,GOAL)+1;
+  const x=i=>p+(all.length===1?0:i/(all.length-1))*(w-2*p);
+  const y=v=h-p-(v-min)/(max-min)*(h-2*p);
+  ctx.strokeStyle='#a7ff3f';ctx.lineWidth=3;ctx.beginPath();
+  all.forEach((e,i)=>i?ctx.lineTo(x(i),y(e.weight)):ctx.moveTo(x(i),y(e.weight)));ctx.stroke();
+  ctx.setLineDash([5,5]);ctx.strokeStyle='#56606e';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p,y(GOAL));ctx.lineTo(w-p,y(GOAL));ctx.stroke();ctx.setLineDash([]);
+  all.forEach((e,i)=>{ctx.fillStyle='#a7ff3f';ctx.beginPath();ctx.arc(x(i),y(e.weight),4,0,Math.PI*2);ctx.fill();});
+  ctx.fillStyle='#8e98a9';ctx.font='11px -apple-system,BlinkMacSystemFont,sans-serif';ctx.fillText(GOAL.toFixed(1)+' кг',w-p-42,y(GOAL)-7);
+}
+window.addEventListener('resize',drawChart);
+render();
+</script>
+</body>
+</html>
